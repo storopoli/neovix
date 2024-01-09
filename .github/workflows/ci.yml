@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  self-care:
+    name: Flake self-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Nix flake inputs
+        uses: DeterminateSystems/flake-checker-action@v5
+        with:
+          fail-mode: true
+
+  linux-x86:
+    name: "Linux x86 config test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install Nix ❄️"
+        uses: DeterminateSystems/nix-installer-action@v9
+
+      - name: "Nix Cache"
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+
+      - name: "Test Config"
+        run: nix flake check .
+
+  # FIXME: waiting for github to release Apple Silicon CI runners
+  macos-x86:
+    name: "macOS x86 config test"
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install Nix ❄️"
+        uses: DeterminateSystems/nix-installer-action@v9
+
+      - name: "Nix Cache"
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+
+      - name: "Test Config"
+        run: nix flake check .
+

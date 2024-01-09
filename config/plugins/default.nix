@@ -1,0 +1,23 @@
+{
+  imports = [
+    ./colorscheme.nix
+    ./lsp.nix
+    ./cmp.nix
+    ./lastplace.nix
+    ./lualine.nix
+    ./telescope.nix
+    ./treesitter.nix
+    ./comment.nix
+    ./autopairs.nix
+    ./surround.nix
+    ./indent-blankline.nix
+    ./git.nix
+    ./which-key.nix
+    ./noice.nix
+    ./trouble.nix
+    ./todo-comments.nix
+    ./format.nix
+    ./lint.nix
+    ./markdown.nix
+  ];
+}

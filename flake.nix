@@ -8,7 +8,8 @@
   };
 
   outputs =
-    { nixvim
+    { self
+    , nixvim
     , flake-parts
     , ...
     } @ inputs:
@@ -40,7 +41,7 @@
             };
           };
         in
-        {
+        rec {
           checks = {
             # Run `nix flake check .` to verify that your config is not broken
             default = nixvimLib.check.mkTestDerivationFromNvim {
@@ -54,6 +55,10 @@
           devShells.default = pkgs.mkShell {
             buildInputs = [ nvim ];
           };
+
+
         };
+
+      flake.overlays.default = (final: prev: { neovix = self.packages.${final.system}.default; });
     };
 }

@@ -2,21 +2,55 @@
 
 [![MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/license/mit/)
 
-This template gives you a good starting point for configuring nixvim standalone.
+My Minimalist Neovim config.
+Banish those unworthy [soydev](https://storopoli.io/2023-11-10-2023-11-13-soydev/)
+IDEs to the depths of Hell!
 
-## Configuring
+![Screenshot](./screenshot.jpg)
 
-To start configuring, just add or modify the nix files in `./config`.
-If you add a new configuration file, remember to add it to the
-[`config/default.nix`](./config/default.nix) file
+## How to Use
 
-## Testing your new configuration
+Just run anywhere with Nix:
 
-To test your configuration simply run the following command
-
+```bash
+nix run github:storopoli/neovix
 ```
+
+Or clone the repo and run:
+
+```bash
 nix run .
 ```
+
+Additionally, you can use it as a flake:
+
+```nix
+{
+  # ...
+  inputs.neovix = {
+    url = "github:storopoli/neovix";
+    inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-parts.follows = "flake-parts";
+    };
+  };
+
+  outputs = inputs @ { self, ... }:
+  {
+    imports = [
+      {
+        nixpkgs.overlays = [
+          # ...
+          inputs.neovix.overlays.default
+        ];
+      }
+    ];
+  };
+
+}
+```
+
+Then `neovix` will be available as `pkgs.neovix`.
 
 ## License
 

@@ -6,7 +6,7 @@
 
     keymaps = {
       "<leader>?" = { action = "oldfiles"; desc = "[?] Find recently opened files"; };
-      "<lader><space>" = { action = "buffers"; desc = "[ ] Find existing buffers"; };
+      "<leader><space>" = { action = "buffers"; desc = "[ ] Find existing buffers"; };
       "<leader>/" = { action = "current_buffer_fuzzy_find"; desc = "[/] Fuzzily search in current buffer"; };
       "<leader>sr" = { action = "resume"; desc = "[R]esume Previous Seasch"; };
       "<leader>sf" = { action = "git_files"; desc = "[F]iles"; };

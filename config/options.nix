@@ -51,7 +51,7 @@
     # Better undo history
     swapfile = false;
     backup = false;
-    undodir = "~/.cache/nvim_undo/";
+    undodir = { __raw = "os.getenv('HOME') .. '/.cache/nvim/undodir'"; };
     undofile = true;
 
     # Case insensitive searching UNLESS /C or capital in search

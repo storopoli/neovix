@@ -53,14 +53,55 @@
       };
     };
 
-    mappingPresets = [ "cmdline" ];
-
     snippet.expand = "luasnip";
   };
 
-  plugins.cmp-nvim-lsp.enable = true;
-  plugins.cmp_luasnip.enable = true;
-  plugins.luasnip.enable = true;
-  plugins.cmp-path.enable = true;
-  plugins.cmp-buffer.enable = true;
+  plugins = {
+    cmp-nvim-lsp.enable = true;
+    cmp_luasnip.enable = true;
+    luasnip.enable = true;
+    cmp-path.enable = true;
+    cmp-buffer.enable = true;
+    cmp-git.enable = true;
+  };
+
+  extraConfigLua = ''
+    local cmp = require('cmp')
+
+    cmp.setup.filetype('gitcommit', {
+      sources = cmp.config.sources({
+        { name = 'git' },
+        { name = 'path' },
+      }, {
+        { name = 'buffer', keyword_length = 3 },
+      })
+    })
+
+    cmp.setup.cmdline({ '/', '?' }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline({
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+      }),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        { name = 'cmdline' }
+      })
+    })
+
+    require("cmp_git").setup()
+
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    cmp.event:on(
+      'confirm_done',
+      cmp_autopairs.on_confirm_done()
+    )
+  '';
 }

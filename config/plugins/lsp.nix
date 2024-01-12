@@ -37,6 +37,10 @@
         enable = true;
         installLanguageServer = false;
       };
+      tailwindcss = {
+        enable = true;
+        installLanguageServer = false;
+      };
       nil_ls = {
         enable = true;
         installLanguageServer = false;
@@ -140,6 +144,7 @@
     rust-analyzer
     gopls
     vscode-langservers-extracted
+    tailwindcss-language-server
     pyright
     lua-language-server
     nil

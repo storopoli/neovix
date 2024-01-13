@@ -41,6 +41,10 @@
         enable = true;
         installLanguageServer = false;
       };
+      htmx = {
+        enable = true;
+        installLanguageServer = false;
+      };
       nil_ls = {
         enable = true;
         installLanguageServer = false;
@@ -145,6 +149,7 @@
     gopls
     vscode-langservers-extracted
     tailwindcss-language-server
+    # htmx-lsp #FIXME: broken in darwin-aarch64
     pyright
     lua-language-server
     nil

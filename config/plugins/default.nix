@@ -19,5 +19,6 @@
     ./format.nix
     ./lint.nix
     ./markdown.nix
+    ./colorizer.nix
   ];
 }

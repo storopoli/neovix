@@ -20,5 +20,6 @@
     ./lint.nix
     ./markdown.nix
     ./colorizer.nix
+    ./ts-autotag.nix
   ];
 }

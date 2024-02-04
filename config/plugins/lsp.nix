@@ -7,68 +7,69 @@
     servers = {
       pyright = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       gopls = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       tsserver = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       bashls = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       html = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       cssls = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       jsonls = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       eslint = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       tailwindcss = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       nil_ls = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       taplo = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       marksman = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       lua-ls = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       rust-analyzer = {
         enable = true;
+        package = null;
         installRustc = false;
         installCargo = false;
       };
       yamlls = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
       typst-lsp = {
         enable = true;
-        installLanguageServer = false;
+        package = null;
       };
     };
 

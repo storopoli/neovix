@@ -1,4 +1,12 @@
 {
+  extraConfigLuaPre = ''
+    local has_words_before = function()
+      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+    end
+  '';
+
   plugins.nvim-cmp = {
     enable = true;
 
@@ -6,7 +14,8 @@
       { name = "nvim_lsp"; }
       { name = "luasnip"; }
       { name = "path"; }
-      { name = "buffer"; }
+      { name = "buffer"; keywordLength = 5; }
+      { name = "copilot"; priority = 100; }
     ];
 
     mapping = {
@@ -20,7 +29,21 @@
         modes = [ "i" "s" ];
       };
       "<C-n>" = {
-        action = "cmp.mapping.select_next_item()";
+        action = ''
+          function(fallback)
+            if cmp.visible() and has_words_before() then
+              if #cmp.get_entries() == 1 then
+                cmp.confirm({ select = true })
+              else
+                cmp.select_next_item()
+              end
+            elseif luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end
+        '';
         modes = [ "i" "s" ];
       };
       "<Tab>" = {

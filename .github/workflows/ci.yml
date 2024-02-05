@@ -32,7 +32,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v9
 
       - name: "Nix Cache"
-        uses: DeterminateSystems/magic-nix-cache-action@v2
+        uses: DeterminateSystems/magic-nix-cache-action@v3
 
       - name: "Test Config"
         run: nix flake check .
@@ -48,7 +48,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v9
 
       - name: "Nix Cache"
-        uses: DeterminateSystems/magic-nix-cache-action@v2
+        uses: DeterminateSystems/magic-nix-cache-action@v3
 
       - name: "Test Config"
         run: nix flake check .

@@ -34,4 +34,21 @@
       };
     };
   };
+
+  keymaps = [
+    {
+      mode = "n";
+      key = "<leader>cp";
+      action = ''
+        function()
+              if require("copilot.client").is_disabled() then
+                vim.cmd("Copilot enable")
+              else
+                vim.cmd("Copilot disable")
+              end
+            end'';
+      options = { desc = "Co[p]ilot Toggle"; };
+      lua = true;
+    }
+  ];
 }

@@ -56,16 +56,62 @@
       lua-ls = {
         enable = true;
         package = null;
+        extraOptions = {
+          Lua = {
+            telemetry = { enable = false; };
+            hint = { enable = true; };
+            workspace = {
+              checkThirdParty = false;
+            };
+            completion = {
+              callSnippet = "Replace";
+            };
+            diagnostics = {
+              globals = [ "vim" ];
+            };
+          };
+        };
       };
       rust-analyzer = {
         enable = true;
         package = null;
         installRustc = false;
         installCargo = false;
+        extraOptions = {
+          "rust-analyzer" = {
+            cargo = {
+              allFeatures = true;
+              loadOutDirsFromCheck = true;
+              runBuildScripts = true;
+            };
+            checkOnSave = true;
+            # Add clippy lints for Rust
+            check = {
+              allFeatures = true;
+              command = "clippy";
+              extraArgs = [ "--no-deps" ];
+            };
+            imports = {
+              granularity = {
+                enforce = true;
+                group = "create";
+              };
+            };
+          };
+        };
       };
       yamlls = {
         enable = true;
         package = null;
+        extraOptions = {
+          yamlls = {
+            schemas = {
+              "https=//raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" = "docker-compose.yaml";
+              "https=//json.schemastore.org/github-workflow.json" = ".github/workflows/*.yaml";
+              "https=//json.schemastore.org/github-action.json" = ".github/actions/*/action.yaml";
+            };
+          };
+        };
       };
       typst-lsp = {
         enable = true;

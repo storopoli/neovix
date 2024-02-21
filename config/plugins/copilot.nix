@@ -6,8 +6,27 @@
         suggestion.enabled = false; # use cmp-copilot instead
         panel.enabled = false; # use cmp-copilot instead
         filetypes = {
-          yaml = false;
-          markdown = false;
+          javascript = true;
+          typescript = true;
+          html = true;
+          css = true;
+          rust = true;
+          python = true;
+          java = true;
+          c = true;
+          cpp = true;
+          nix = true;
+          lua = true;
+
+          yaml = true;
+          markdown = true;
+          help = false;
+          gitcommit = false;
+          gitrebase = false;
+          hgcommit = false;
+          svn = false;
+          cvs = false;
+          "." = false;
         };
       };
       copilot-cmp = {

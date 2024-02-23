@@ -21,6 +21,7 @@
     ./markdown.nix
     ./colorizer.nix
     ./ts-autotag.nix
+    ./dashboard.nix
     ./persistence.nix
   ];
 }

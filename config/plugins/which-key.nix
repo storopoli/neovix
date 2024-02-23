@@ -16,6 +16,7 @@
       "<leader>s" = "+search";
       "<leader>n" = "+noice";
       "<leader>x" = "+trouble";
+      "<leader>t" = "+session";
     };
   };
 }

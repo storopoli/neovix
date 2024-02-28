@@ -69,5 +69,12 @@
     # Transparency
     winblend = 5;
     termguicolors = true;
+
+    # If enabled, Neovim will search for the following files in the current directory:
+    # - .nvim.lua
+    # - .nvimrc
+    # - .exrc
+    # Add files with `:trust`, remove with `:trust ++remove`
+    exrc = true;
   };
 }

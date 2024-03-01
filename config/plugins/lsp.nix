@@ -17,6 +17,10 @@
         enable = true;
         package = null;
       };
+      julials = {
+        enable = true;
+        package = null;
+      };
       bashls = {
         enable = true;
         package = null;

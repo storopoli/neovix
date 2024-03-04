@@ -3,6 +3,8 @@
     # Set highlight on search
     hlsearch = false;
     incsearch = true;
+    # Preview substitutions live, as you type!
+    inccommand = "split";
 
     # Make line numbers default
     nu = true;
@@ -65,6 +67,14 @@
     # Window splitting
     splitbelow = true;
     splitright = true;
+
+    # Sets how neovim will display certain whitespace in the editor.
+    list = true;
+    listchars = {
+      tab = "» ";
+      trail = "·";
+      nbsp = "␣";
+    };
 
     # Transparency
     winblend = 5;

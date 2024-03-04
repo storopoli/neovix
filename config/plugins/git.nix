@@ -72,6 +72,10 @@
     };
   };
 
+  extraPackages = with pkgs; [
+    lazygit
+  ];
+
   extraPlugins = with pkgs.vimPlugins; [
     lazygit-nvim
   ];

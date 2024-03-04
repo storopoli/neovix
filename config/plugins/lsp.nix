@@ -72,6 +72,7 @@
             };
             diagnostics = {
               globals = [ "vim" ];
+              disable = [ "missing-fields" ];
             };
           };
         };
@@ -81,28 +82,6 @@
         package = null;
         installRustc = false;
         installCargo = false;
-        extraOptions = {
-          "rust-analyzer" = {
-            cargo = {
-              allFeatures = true;
-              loadOutDirsFromCheck = true;
-              runBuildScripts = true;
-            };
-            checkOnSave = true;
-            # Add clippy lints for Rust
-            check = {
-              allFeatures = true;
-              command = "clippy";
-              extraArgs = [ "--no-deps" ];
-            };
-            imports = {
-              granularity = {
-                enforce = true;
-                group = "create";
-              };
-            };
-          };
-        };
       };
       yamlls = {
         enable = true;

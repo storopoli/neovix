@@ -1,74 +1,41 @@
 {
   extraConfigLuaPre = ''
-    local has_words_before = function()
-      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
-    end
+    local luasnip = require("luasnip")
+    require("luasnip.loaders.from_vscode").lazy_load()
+    luasnip.config.setup({})
   '';
 
   plugins.nvim-cmp = {
     enable = true;
 
     sources = [
+      { name = "copilot"; priority = 100; }
       { name = "nvim_lsp"; }
       { name = "luasnip"; }
       { name = "path"; }
-      { name = "buffer"; keywordLength = 5; }
-      { name = "copilot"; priority = 100; }
     ];
 
     mapping = {
-      "<C-b>" = "cmp.mapping.scroll_docs(-4)";
-      "<C-f>" = "cmp.mapping.scroll_docs(4)";
       "<C-Space>" = "cmp.mapping.complete()";
       "<C-e>" = "cmp.mapping.abort()";
-      "<CR>" = "cmp.mapping.confirm({ select = true })";
-      "<C-p>" = {
-        action = "cmp.mapping.select_prev_item()";
-        modes = [ "i" "s" ];
-      };
-      "<C-n>" = {
+      "<C-y>" = "cmp.mapping.confirm({ select = true })";
+      "<C-p>" = "cmp.mapping.select_prev_item()";
+      "<C-n>" = "cmp.mapping.select_next_item()";
+      "<C-l>" = {
         action = ''
-          function(fallback)
-            if cmp.visible() and has_words_before() then
-              if #cmp.get_entries() == 1 then
-                cmp.confirm({ select = true })
-              else
-                cmp.select_next_item()
-              end
-            elseif luasnip.expand_or_locally_jumpable() then
+          function()
+            if luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
-            else
-              fallback()
             end
           end
         '';
         modes = [ "i" "s" ];
       };
-      "<Tab>" = {
+      "<C-h>" = {
         action = ''
-          function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif require("luasnip").expand_or_locally_jumpable() then
-              require("luasnip").expand_or_jump()
-            else
-              fallback()
-            end
-          end
-        '';
-        modes = [ "i" "s" ];
-      };
-      "<S-Tab>" = {
-        action = ''
-          function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif require("luasnip").jumpable(-1) then
-              require("luasnip").jump(-1)
-            else
-              fallback()
+          function()
+            if luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
             end
           end
         '';

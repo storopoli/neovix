@@ -74,7 +74,7 @@
       action = ''"+y'';
       options = { noremap = true; silent = true; desc = "Global [Y]ank"; };
     }
-    { mode = "x"; key = "<leader>p"; action = ''[["_dP]]''; options = { noremap = true; silent = true; desc = "Global [P]aste"; }; }
+    { mode = "x"; key = "<leader>p"; action = ''"+p''; options = { noremap = true; silent = true; desc = "Global [P]aste"; }; }
   ];
 
 }

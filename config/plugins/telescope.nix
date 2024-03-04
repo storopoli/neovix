@@ -5,7 +5,7 @@
     enable = true;
 
     keymaps = {
-      "<leader>?" = { action = "oldfiles"; desc = "[?] Find recently opened files"; };
+      "<leader>." = { action = "oldfiles"; desc = "[.] Find recently opened files"; };
       "<leader><space>" = { action = "buffers"; desc = "[ ] Find existing buffers"; };
       "<leader>/" = { action = "current_buffer_fuzzy_find"; desc = "[/] Fuzzily search in current buffer"; };
       "<leader>sr" = { action = "resume"; desc = "[R]esume Previous Seasch"; };
@@ -22,27 +22,45 @@
       "<leader>sS" = { action = "git_stash"; desc = "[S]tash"; };
       "<leader>sT" = { action = "git_stash"; desc = "[T]reesitter"; };
     };
-
-    defaults = {
-      mappings = {
-        i = {
-          "<C-n>" = "move_selection_next";
-          "<C-p>" = "move_selection_previous";
-        };
-      };
-    };
   };
 
   plugins.telescope.extensions.fzf-native.enable = true;
 
-  plugins.telescope.extensions.undo.enable = true;
-
   plugins.telescope.extensions.file_browser.enable = true;
 
+  plugins.telescope.extensions.ui-select.enable = true;
+
   keymaps = [
-    { mode = "n"; key = "<leader>su"; action = "<CMD>Telescope undo<CR>"; options = { desc = "[U]ndo"; }; }
     { mode = "n"; key = "<leader>sb"; action = "<CMD>Telescope file_browser<CR>"; options = { desc = "File [B]rowser"; }; }
     { mode = "n"; key = "<leader>sB"; action = "<CMD>Telescope file_browser path=%:p:h select_buffer=true<CR>"; options = { desc = "File [B]rowser Current Buffer"; }; }
+    {
+      mode = "n";
+      key = "<leader>/";
+      action = ''
+        function()
+          require("telescope.builtin").current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+            winblend = 10,
+            previewer = false,
+          })
+        end
+      '';
+      options = { desc = "[/] Fuzzily search in current buffer"; };
+      lua = true;
+    }
+    {
+      mode = "n";
+      key = "<leader>s/";
+      action = ''
+        function()
+          require("telescope.builtin").live_grep {
+            grep_open_files = true,
+            prompt_title = 'Live Grep in Open Files',
+          }
+        end
+      '';
+      options = { desc = "[S]earch [/] in Open Files'"; };
+      lua = true;
+    }
   ];
 
   extraPackages = with pkgs; [

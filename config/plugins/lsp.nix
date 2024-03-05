@@ -41,10 +41,6 @@
         enable = true;
         package = null;
       };
-      tailwindcss = {
-        enable = true;
-        package = null;
-      };
       nil_ls = {
         enable = true;
         package = null;
@@ -174,7 +170,6 @@
     rust-analyzer
     gopls
     vscode-langservers-extracted
-    tailwindcss-language-server
     pyright
     lua-language-server
     nil

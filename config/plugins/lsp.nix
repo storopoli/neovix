@@ -9,6 +9,20 @@
         enable = true;
         package = null;
       };
+      ruff-lsp = {
+        enable = true;
+        package = null;
+        extraOptions = {
+          # Disable hover in favor of pyright.
+          on_attach.__raw = ''
+            function(client, bufnr)
+              if client.name == "ruff_lsp" then
+                client.server_capabilities.hoverProvider = false
+              end
+            end
+          '';
+        };
+      };
       gopls = {
         enable = true;
         package = null;
@@ -171,6 +185,7 @@
     gopls
     vscode-langservers-extracted
     pyright
+    ruff-lsp
     lua-language-server
     nil
     taplo

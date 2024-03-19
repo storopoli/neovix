@@ -93,6 +93,9 @@
 
         };
 
-      flake.overlays.default = (final: prev: { neovix = self.packages.${final.system}.default; });
+      flake.overlays.default = (final: prev: {
+        neovix = self.packages.${final.system}.default;
+        lazynvim = self.packages.${final.system}.lazynvim;
+      });
     };
 }

@@ -12,7 +12,7 @@
     ./lsp.nix
     ./markdown.nix
     ./telescope.nix
-    ./tresitter.nix
+    ./treesitter.nix
     ./trouble.nix
     ./ts-autotag.nix
     ./ui.nix

@@ -23,7 +23,7 @@ jobs:
           fail-mode: true
 
   config-tests:
-    name: Config test on ${{ matrix.os }}
+    name: ${{ matrix.os-name }} config test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -37,12 +37,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Install Nix ❄️"
+      - name: "Install Nix"
         uses: DeterminateSystems/nix-installer-action@v10
 
       - name: "Nix Cache"
         uses: DeterminateSystems/magic-nix-cache-action@v4
 
-      - name: "Test Config"
+      - name: "Test Flake"
         run: nix flake check .
 
+      - name: "Build nixvim"
+        run: nix build -L .
+
+      - name: "Build lazynvim"
+        run: nix build -L '.#lazynvim'

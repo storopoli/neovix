@@ -1,61 +1,9 @@
 { pkgs, ... }:
 
-let
-  nvim-plugintree = pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
-    with p; [
-      bash
-      bibtex
-      c
-      css
-      csv
-      cpp
-      dockerfile
-      dot
-      fish
-      go
-      html
-      javascript
-      jsdoc
-      json
-      julia
-      latex
-      llvm
-      lua
-      luadoc
-      luap
-      make
-      markdown
-      markdown_inline
-      mlir
-      nix
-      python
-      query
-      regex
-      rst
-      rust
-      ssh_config
-      sql
-      tsv
-      tsx
-      typescript
-      # typst # TODO: Add this back when it's fixed
-      toml
-      vim
-      vimdoc
-      yaml
-      zig
-    ]);
-
-  treesitter-parsers = pkgs.symlinkJoin {
-    name = "treesitter-parsers";
-    paths = nvim-plugintree.dependencies;
-  };
-in
-
 {
   plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
-      pkg = nvim-treesitter;
+      pkg = nvim-treesitter.withAllGrammars;
 
       event = [ "BufReadPost" "BufNewFile" ];
 
@@ -65,10 +13,7 @@ in
 
       config = ''
         function()
-          vim.opt.runtimepath:append("${nvim-plugintree}")
-          vim.opt.runtimepath:append("${treesitter-parsers}")
           require("nvim-treesitter.configs").setup({
-            parser_install_dir = "${treesitter-parsers}",
             ensure_installed = {},
             auto_install = false,
             highlight = { enable = true },

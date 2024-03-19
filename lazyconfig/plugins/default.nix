@@ -13,6 +13,7 @@
     ./markdown.nix
     ./telescope.nix
     ./tresitter.nix
+    ./trouble.nix
     ./ui.nix
     ./utils.nix
   ];

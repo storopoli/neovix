@@ -14,6 +14,7 @@
     ./telescope.nix
     ./tresitter.nix
     ./trouble.nix
+    ./ts-autotag.nix
     ./ui.nix
     ./utils.nix
   ];

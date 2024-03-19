@@ -3,8 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixvim.url = "github:nix-community/nixvim";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
   outputs =
@@ -14,9 +18,12 @@
     , ...
     } @ inputs:
     let
-      config = import ./config; # import the module directly
+      nvim-config = import ./config; # import the module directly
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./pre-commit-hooks.nix
+      ];
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -27,6 +34,7 @@
       perSystem =
         { pkgs
         , system
+        , config
         , ...
         }:
         let
@@ -34,7 +42,7 @@
           nixvim' = nixvim.legacyPackages.${system};
           nvim = nixvim'.makeNixvimWithModule {
             inherit pkgs;
-            module = config;
+            module = nvim-config;
             # You can use `extraSpecialArgs` to pass additional arguments to your module files
             extraSpecialArgs = {
               # inherit (inputs) foo;
@@ -50,10 +58,18 @@
             };
           };
 
-          packages.default = nvim; # Lets you run `nix run .` to start nixvim
+          packages = {
+            default = nvim;
+            nvim = nvim;
+          };
+
+          formatter = pkgs.nixpkgs-fmt;
 
           devShells.default = pkgs.mkShell {
             buildInputs = [ nvim ];
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
           };
 
 

@@ -5,11 +5,12 @@
     ./colorscheme.nix
     ./colorizer.nix
     ./comment.nix
+    ./copilot.nix
+    ./git.nix
     ./lsp.nix
     ./telescope.nix
     ./tresitter.nix
-    ./utils.nix
     ./ui.nix
-    ./git.nix
+    ./utils.nix
   ];
 }

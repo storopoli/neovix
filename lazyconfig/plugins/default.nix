@@ -5,5 +5,6 @@
     ./colorscheme.nix
     ./lsp.nix
     ./telescope.nix
+    ./utils.nix
   ];
 }

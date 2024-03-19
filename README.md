@@ -10,6 +10,8 @@ IDEs to the depths of Hell!
 
 ## Versions
 
+![Chad Vimer](./chad-vimer.jpg)
+
 1. regular `nixvim` that will load all packages
 1. lazy `nixvim` with `lazy.nvim` that will lazy-load the packages on-demand
 

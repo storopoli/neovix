@@ -27,6 +27,7 @@
       "markdown"
       "markdown_inline"
       "mlir"
+      "nix"
       "python"
       "query"
       "regex"

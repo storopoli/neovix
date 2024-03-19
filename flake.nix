@@ -18,7 +18,8 @@
     , ...
     } @ inputs:
     let
-      nvim-config = import ./config; # import the module directly
+      nvim-config = import ./config;
+      lazy-nvim-config = import ./lazyconfig;
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
@@ -39,42 +40,62 @@
         }:
         let
           nixvimLib = nixvim.lib.${system};
+
           nixvim' = nixvim.legacyPackages.${system};
+
           nvim = nixvim'.makeNixvimWithModule {
             inherit pkgs;
             module = nvim-config;
-            # You can use `extraSpecialArgs` to pass additional arguments to your module files
-            extraSpecialArgs = {
-              # inherit (inputs) foo;
-            };
+            extraSpecialArgs = { };
+          };
+
+          lazynvim = nixvim'.makeNixvimWithModule {
+            inherit pkgs;
+            module = lazy-nvim-config;
+            extraSpecialArgs = { };
           };
         in
         {
           checks = {
-            # Run `nix flake check .` to verify that your config is not broken
             default = nixvimLib.check.mkTestDerivationFromNvim {
               inherit nvim;
               name = "A nixvim configuration";
+            };
+            lazynvim = nixvimLib.check.mkTestDerivationFromNvim {
+              nvim = lazynvim;
+              name = "A nixvim configuration with lazy.nvim";
             };
           };
 
           packages = {
             default = nvim;
             nvim = nvim;
+            lazynvim = lazynvim;
           };
 
           formatter = pkgs.nixpkgs-fmt;
 
-          devShells.default = pkgs.mkShell {
-            buildInputs = [ nvim ];
-            shellHook = ''
-              ${config.pre-commit.installationScript}
-            '';
+          devShells = {
+            default = pkgs.mkShell {
+              buildInputs = [ nvim ];
+              shellHook = ''
+                ${config.pre-commit.installationScript}
+              '';
+            };
+            lazynvim = pkgs.mkShell {
+              buildInputs = [ lazynvim ];
+              shellHook = ''
+                ${config.pre-commit.installationScript}
+              '';
+            };
           };
 
 
         };
 
-      flake.overlays.default = (final: prev: { neovix = self.packages.${final.system}.default; });
+      flake.overlays.default = (final: prev: {
+        neovix = self.packages.${final.system}.nvim;
+        lazynvim = self.packages.${final.system}.lazynvim;
+      });
     };
 }

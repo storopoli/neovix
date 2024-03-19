@@ -8,18 +8,29 @@ IDEs to the depths of Hell!
 
 ![Screenshot](./screenshot.jpg)
 
+## Versions
+
+1. regular `nixvim` that will load all packages
+1. lazy `nixvim` with `lazy.nvim` that will lazy-load the packages on-demand
+
 ## How to Use
 
 Just run anywhere with Nix:
 
 ```bash
 nix run github:storopoli/neovix
+
+# or for the lazy.nvim version
+nix run github:storopoli/neovix#lazynvim
 ```
 
 Or clone the repo and run:
 
 ```bash
 nix run .
+
+# or for the lazy.nvim version
+nix run .#lazynvim
 ```
 
 Additionally, you can use it as a flake:
@@ -50,7 +61,8 @@ Additionally, you can use it as a flake:
 }
 ```
 
-Then `neovix` will be available as `pkgs.neovix`.
+Then `neovix` will be available as `pkgs.neovix`;
+and the `lazy.nvim`-enabled version will be available as `pkgs.lazynvim`.
 
 ## Local Configurations with `exrc`
 

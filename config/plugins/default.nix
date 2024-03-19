@@ -3,7 +3,6 @@
     ./colorscheme.nix
     ./lsp.nix
     ./cmp.nix
-    ./lastplace.nix
     ./lualine.nix
     ./telescope.nix
     ./treesitter.nix

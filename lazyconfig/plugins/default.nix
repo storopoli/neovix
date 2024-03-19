@@ -6,6 +6,7 @@
     ./colorizer.nix
     ./comment.nix
     ./copilot.nix
+    ./format.nix
     ./git.nix
     ./lsp.nix
     ./telescope.nix

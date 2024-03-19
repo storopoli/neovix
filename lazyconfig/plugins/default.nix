@@ -4,5 +4,6 @@
   imports = [
     ./colorscheme.nix
     ./lsp.nix
+    ./telescope.nix
   ];
 }

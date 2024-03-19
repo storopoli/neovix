@@ -15,7 +15,7 @@
         function()
           require("catppuccin").setup({
             flavour = "mocha",
-            transparent_background = true,
+            --transparent_background = true,
             integrations = {
               native_lsp = {
                 enabled = true,

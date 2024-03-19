@@ -8,5 +8,6 @@
     ./tresitter.nix
     ./utils.nix
     ./ui.nix
+    ./git.nix
   ];
 }

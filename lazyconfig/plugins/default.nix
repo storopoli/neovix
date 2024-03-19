@@ -4,6 +4,7 @@
   imports = [
     ./colorscheme.nix
     ./colorizer.nix
+    ./comment.nix
     ./lsp.nix
     ./telescope.nix
     ./tresitter.nix

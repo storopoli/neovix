@@ -3,5 +3,6 @@
 
   imports = [
     ./colorscheme.nix
+    ./lsp.nix
   ];
 }

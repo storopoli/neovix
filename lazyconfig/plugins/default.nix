@@ -6,5 +6,6 @@
     ./lsp.nix
     ./telescope.nix
     ./utils.nix
+    ./ui.nix
   ];
 }

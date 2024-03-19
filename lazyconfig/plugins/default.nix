@@ -10,6 +10,7 @@
     ./git.nix
     ./lint.nix
     ./lsp.nix
+    ./markdown.nix
     ./telescope.nix
     ./tresitter.nix
     ./ui.nix

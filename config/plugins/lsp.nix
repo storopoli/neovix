@@ -8,6 +8,14 @@
       pyright = {
         enable = true;
         package = null;
+        extraOptions = {
+          settings = {
+            pyright = {
+              # Using Ruff's import organizer
+              disableOrganizeImports = true;
+            };
+          };
+        };
       };
       ruff-lsp = {
         enable = true;
@@ -76,6 +84,9 @@
             hint = { enable = true; };
             workspace = {
               checkThirdParty = false;
+              ignoreDir = [
+                ".direnv"
+              ];
             };
             completion = {
               callSnippet = "Replace";
@@ -92,6 +103,26 @@
         package = null;
         installRustc = false;
         installCargo = false;
+        settings = {
+          check = {
+            command = "clippy";
+          };
+          imports = {
+            granularity = {
+              group = "module";
+            };
+          };
+          files = {
+            excludeDirs = [
+              ".direnv"
+              ".git"
+              "target"
+              "js"
+              "node_modules"
+              "assets"
+            ];
+          };
+        };
       };
       yamlls = {
         enable = true;

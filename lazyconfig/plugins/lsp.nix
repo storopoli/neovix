@@ -142,7 +142,15 @@
           cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
           -- LSPs
-          lsp.pyright.setup({ capabilities = capabilities }) -- requires pyright to be installed
+          lsp.pyright.setup({ -- requires pyright to be installed
+            capabilities = capabilities,
+            settings = {
+              pyright = {
+                -- Using Ruff's import organizer
+                disableOrganizeImports = true,
+              },
+            },
+          })
           lsp.ruff_lsp.setup({ -- requires ruff-lsp to be installed
             capabilities = capabilities,
             on_attach = function(client, bufnr)
@@ -176,6 +184,9 @@
                     "$${3rd}/luv/library",
                     unpack(vim.api.nvim_get_runtime_file("", true)),
                   },
+                  ignoreDir = {
+                    ".direnv",
+                  },
                 },
                 completion = {
                   callSnippet = "Replace",
@@ -187,7 +198,31 @@
               },
             },
           })
-          lsp.rust_analyzer.setup({ capabilities = capabilities }) -- requires rust-analyzer to be installed
+          lsp.rust_analyzer.setup({ -- requires rust-analyzer to be installed
+            capabilities = capabilities,
+            settings = {
+              ['rust-analyzer'] = {
+                check = {
+                  command = "clippy",
+                },
+                imports = {
+                    granularity = {
+                      group = "module",
+                    },
+                },
+                files = {
+                  excludeDirs = {
+                    ".direnv",
+                    ".git",
+                    "target",
+                    "js",
+                    "node_modules",
+                    "assets",
+                  },
+                },
+              },
+            },
+          })
           lsp.yamlls.setup({ -- requires yaml-language-server to be installed
             capabilities = capabilities,
             settings = {

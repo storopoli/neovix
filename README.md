@@ -6,7 +6,7 @@ My Minimalist Neovim config.
 Banish those unworthy [soydev](https://storopoli.com/posts/2023-11-10-soydev.html)
 IDEs to the depths of Hell!
 
-TODO: SCREENSHOT
+![screenshot](screenshot.png)
 
 ## How to Use
 

@@ -1,54 +1,23 @@
-{
-  programs.nixvim = {
-    plugins = {
-      copilot-lua = {
-        enable = true;
-        suggestion.enabled = false; # use cmp-copilot instead
-        panel.enabled = false; # use cmp-copilot instead
-        filetypes = {
-          javascript = true;
-          typescript = true;
-          html = true;
-          css = true;
-          rust = true;
-          python = true;
-          java = true;
-          c = true;
-          cpp = true;
-          nix = true;
-          lua = true;
+{ lib, ... }:
 
-          yaml = true;
-          markdown = true;
-          help = false;
-          gitcommit = false;
-          gitrebase = false;
-          hgcommit = false;
-          svn = false;
-          cvs = false;
-          "." = false;
+{
+  plugins = {
+    copilot-lua = {
+      enable = true;
+      settings = {
+        filetypes = {
+          markdown = true; # overrides default
+          sh = lib.nixvim.mkRaw ''
+            function()
+              if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
+                -- disable for .env files
+                return false
+              end
+              return true
+            end
+          '';
         };
-      };
-      copilot-cmp = {
-        enable = true;
       };
     };
   };
-
-  keymaps = [
-    {
-      mode = "n";
-      key = "<leader>cp";
-      action = ''
-        function()
-              if require("copilot.client").is_disabled() then
-                vim.cmd("Copilot enable")
-              else
-                vim.cmd("Copilot disable")
-              end
-            end'';
-      options = { desc = "Co[p]ilot Toggle"; };
-      lua = true;
-    }
-  ];
 }

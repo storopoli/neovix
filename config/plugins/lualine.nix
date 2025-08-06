@@ -1,9 +1,3 @@
 {
-  plugins.lualine = {
-    enable = true;
-
-    globalstatus = true;
-
-    # iconsEnabled = false;
-  };
+  plugins.lualine.enable = true;
 }

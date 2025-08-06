@@ -1,90 +1,66 @@
+{ lib, ... }:
+
 {
-  config.options = {
-    # Set highlight on search
-    hlsearch = false;
-    incsearch = true;
-    # Preview substitutions live, as you type!
-    inccommand = "split";
+  config = {
+    opts = {
+      # Search & display
+      hlsearch = false;
+      incsearch = true;
+      nu = true;
+      relativenumber = true;
 
-    # Make line numbers default
-    nu = true;
-    relativenumber = true;
+      # Indentation
+      tabstop = 2;
+      softtabstop = 2;
+      shiftwidth = 2;
+      expandtab = true;
 
-    # Tab settings
-    tabstop = 4;
-    softtabstop = 4;
-    shiftwidth = 4;
-    expandtab = true;
+      # A lot of plugins depends on hidden true
+      hidden = true;
 
-    # Lazy redraw for crazy macros
-    #lazyredraw = true;
+      # Interface
+      laststatus = 3;
+      winbar = "%=%m %f";
+      mouse = "a";
+      scrolloff = 8;
+      sidescrolloff = 8;
+      timeoutlen = 500;
+      ttyfast = true;
+      wrap = false;
+      breakindent = true;
 
-    # A lot of plugins depends on hidden true
-    hidden = true;
+      # Files & backup
+      swapfile = false;
+      backup = false;
+      undodir = lib.nixvim.mkRaw "vim.fn.stdpath('data') .. '/undo'";
+      undofile = true;
 
-    # set command line height to zero/two lines
-    # cmdheight = 2;
-    cmdheight = 0;
+      # Search behavior
+      ignorecase = true;
+      smartcase = true;
 
-    # Statusbar
-    laststatus = 3;
-
-    # Winbar on top of the windows
-    winbar = "%=%m %f";
-
-    # Enable mouse mode
-    mouse = "a";
-
-    # Scrolling
-    scrolloff = 8;
-    sidescrolloff = 8;
-
-    # Time in milliseconds to wait for a mapped sequence to complete
-    timeoutlen = 50;
-    ttyfast = true;
-    updatetime = 50;
-
-    # No wrap
-    wrap = false;
-
-    # Enable break indent
-    breakindent = true;
-
-    # Better undo history
-    swapfile = false;
-    backup = false;
-    undodir = { __raw = "os.getenv('HOME') .. '/.cache/nvim/undodir'"; };
-    undofile = true;
-
-    # Case insensitive searching UNLESS /C or capital in search
-    ignorecase = true;
-    smartcase = true;
-
-    # color column
-    colorcolumn = "80";
-    signcolumn = "yes";
-
-    # Window splitting
-    splitbelow = true;
-    splitright = true;
-
-    # Sets how neovim will display certain whitespace in the editor.
-    list = true;
-    listchars = {
-      tab = "» ";
-      trail = "·";
-      nbsp = "␣";
+      # UI improvements
+      updatetime = 500;
+      colorcolumn = "80";
+      splitbelow = true;
+      splitright = true;
+      list = true;
+      listchars = {
+        tab = "» ";
+        trail = "·";
+        nbsp = "␣";
+      };
+      winborder = "rounded";
+      # If enabled, Neovim will search for the following files in the current directory:
+      # - .nvim.lua
+      # - .nvimrc
+      # - .exrc
+      # Add files with `:trust`, remove with `:trust ++remove`
+      exrc = true;
     };
 
-    # Transparency
-    winblend = 5;
-    termguicolors = true;
-
-    # If enabled, Neovim will search for the following files in the current directory:
-    # - .nvim.lua
-    # - .nvimrc
-    # - .exrc
-    # Add files with `:trust`, remove with `:trust ++remove`
-    exrc = true;
+    extraConfigLua = ''
+      vim.wo.signcolumn = "yes"
+    '';
   };
 }

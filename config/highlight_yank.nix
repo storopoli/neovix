@@ -1,11 +1,15 @@
+{ lib, ... }:
+
 {
   autoCmd = [
     {
       event = "TextYankPost";
-      group = "HighlightYank";
-      command = "silent! lua vim.highlight.on_yank{ higroup='IncSearch', timeout=200 }";
+      group = "YankHighlight";
+      pattern = "*";
+      callback = lib.nixvim.mkRaw "function() vim.highlight.on_yank() end";
+      desc = "Highlight yanked text";
     }
   ];
 
-  autoGroups.HighlightYank.clear = true;
+  autoGroups.YankHighlight.clear = true;
 }

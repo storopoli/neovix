@@ -2,29 +2,21 @@
   description = "A nixvim configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixvim.url = "github:nix-community/nixvim";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks.url = "github:cachix/git-hooks.nix";
+
   };
 
   outputs =
-    { self
-    , nixvim
-    , flake-parts
-    , ...
-    } @ inputs:
-    let
-      nvim-config = import ./config;
-      lazy-nvim-config = import ./lazyconfig;
-    in
+    {
+      nixvim,
+      flake-parts,
+      git-hooks,
+      ...
+    }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        ./pre-commit-hooks.nix
-      ];
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -33,69 +25,61 @@
       ];
 
       perSystem =
-        { pkgs
-        , system
-        , config
-        , ...
-        }:
+        { self', system, ... }:
         let
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
           nixvimLib = nixvim.lib.${system};
-
           nixvim' = nixvim.legacyPackages.${system};
-
-          nvim = nixvim'.makeNixvimWithModule {
+          nixvimModule = {
             inherit pkgs;
-            module = nvim-config;
-            extraSpecialArgs = { };
+            module = import ./config; # import the module directly
+            # You can use `extraSpecialArgs` to pass additional arguments to your module files
+            extraSpecialArgs = {
+              # inherit (inputs) foo;
+            };
           };
-
-          lazynvim = nixvim'.makeNixvimWithModule {
-            inherit pkgs;
-            module = lazy-nvim-config;
-            extraSpecialArgs = { };
-          };
+          nvim = nixvim'.makeNixvimWithModule nixvimModule;
         in
         {
           checks = {
-            default = nixvimLib.check.mkTestDerivationFromNvim {
-              inherit nvim;
-              name = "A nixvim configuration";
-            };
-            lazynvim = nixvimLib.check.mkTestDerivationFromNvim {
-              nvim = lazynvim;
-              name = "A nixvim configuration with lazy.nvim";
-            };
-          };
+            # Run `nix flake check .` to verify that your config is not broken
+            default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+            pre-commit-check = inputs.git-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                # Nix
+                nixfmt-rfc-style.enable = true;
 
-          packages = {
-            default = nvim;
-            nvim = nvim;
-            lazynvim = lazynvim;
-          };
+                flake-checker = {
+                  enable = true;
+                  args = [
+                    "--check-outdated"
+                    "false" # don't check for nixpkgs
+                  ];
+                };
 
-          formatter = pkgs.nixpkgs-fmt;
-
-          devShells = {
-            default = pkgs.mkShell {
-              buildInputs = [ nvim ];
-              shellHook = ''
-                ${config.pre-commit.installationScript}
-              '';
-            };
-            lazynvim = pkgs.mkShell {
-              buildInputs = [ lazynvim ];
-              shellHook = ''
-                ${config.pre-commit.installationScript}
-              '';
+                # Lua
+                luacheck.enable = true;
+              };
             };
           };
 
+          # Lets you run `nix run .` to start nixvim
+          packages.default = nvim;
 
+          devShells.default = pkgs.mkShell {
+            buildInputs = [ nvim ] ++ self'.checks.pre-commit-check.enabledPackages;
+            shellHook = self'.checks.pre-commit-check.shellHook;
+          };
         };
 
-      flake.overlays.default = (final: prev: {
-        neovix = self.packages.${final.system}.nvim;
-        lazynvim = self.packages.${final.system}.lazynvim;
-      });
+      flake.overlays.default = (
+        final: prev: {
+          neovix = final.pkgs.neovix or final.pkgs.neovim;
+        }
+      );
     };
 }

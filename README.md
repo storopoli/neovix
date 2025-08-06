@@ -3,17 +3,10 @@
 [![MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/license/mit/)
 
 My Minimalist Neovim config.
-Banish those unworthy [soydev](https://storopoli.io/2023-11-10-2023-11-13-soydev/)
+Banish those unworthy [soydev](https://storopoli.com/posts/2023-11-10-soydev.html)
 IDEs to the depths of Hell!
 
-![Screenshot](./screenshot.jpg)
-
-## Versions
-
-![Chad Vimer](./chad-vimer.jpg)
-
-1. regular `nixvim` that will load all packages
-1. lazy `nixvim` with `lazy.nvim` that will lazy-load the packages on-demand
+![screenshot](screenshot.png)
 
 ## How to Use
 
@@ -21,18 +14,12 @@ Just run anywhere with Nix:
 
 ```bash
 nix run github:storopoli/neovix
-
-# or for the lazy.nvim version
-nix run github:storopoli/neovix#lazynvim
 ```
 
 Or clone the repo and run:
 
 ```bash
 nix run .
-
-# or for the lazy.nvim version
-nix run .#lazynvim
 ```
 
 Additionally, you can use it as a flake:
@@ -63,8 +50,7 @@ Additionally, you can use it as a flake:
 }
 ```
 
-Then `neovix` will be available as `pkgs.neovix`;
-and the `lazy.nvim`-enabled version will be available as `pkgs.lazynvim`.
+Then `neovix` will be available as `pkgs.neovix`.
 
 ## Local Configurations with `exrc`
 
@@ -77,7 +63,7 @@ followed by the local configuration.
 An example `.nvim.lua` might be as follows:
 
 ```lua
-local nvim_lsp = require('lspconfig')
+local nvim_lsp = require("lspconfig")
 
 nvim_lsp.rust_analyzer.setup({
   root_dir = function()

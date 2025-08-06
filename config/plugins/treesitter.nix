@@ -1,137 +1,123 @@
+{ lib, ... }:
+
 {
-  plugins.treesitter = {
-    enable = true;
-
-    ensureInstalled = [
-      "bash"
-      "bibtex"
-      "c"
-      "css"
-      "csv"
-      "cpp"
-      "dockerfile"
-      "dot"
-      "fish"
-      "go"
-      "html"
-      "javascript"
-      "jsdoc"
-      "json"
-      "julia"
-      "latex"
-      "llvm"
-      "lua"
-      "luadoc"
-      "luap"
-      "make"
-      "markdown"
-      "markdown_inline"
-      "mlir"
-      "nix"
-      "python"
-      "query"
-      "regex"
-      "rst"
-      "rust"
-      "ssh_config"
-      "sql"
-      "tsv"
-      "tsx"
-      "typescript"
-      # "typst"
-      "toml"
-      "vim"
-      "vimdoc"
-      "yaml"
-      "zig"
-    ];
-
-    indent = true;
-
-    incrementalSelection = {
+  plugins = {
+    treesitter = {
       enable = true;
+      settings = {
+        highlight.enable = true;
+        sync_install = false;
+        auto_install = false;
+        ignore_install = [ ];
+        additional_vim_regex_highlighting = false;
 
-      keymaps = {
-        initSelection = "<C-space>";
-        nodeIncremental = "<C-space>";
-        scopeIncremental = "<C-space>";
-        nodeDecremental = "<M-space>";
+        incremental_selection = {
+          enable = true;
+          keymaps = {
+            init_selection = "<c-space>";
+            node_incremental = "<c-space>";
+            scope_incremental = "<c-s>";
+            node_decremental = "<M-space>";
+          };
+        };
+
+        indent.enable = true;
+
+        textobjects = {
+          select = {
+            enable = true;
+            lookahead = true;
+            keymaps = {
+              "aa" = "@parameter.outer";
+              "ia" = "@parameter.inner";
+              "af" = "@function.outer";
+              "if" = "@function.inner";
+              "ac" = "@class.outer";
+              "ic" = {
+                query = "@class.inner";
+                desc = "Select inner part of a class region";
+              };
+              "as" = {
+                query = "@local.scope";
+                query_group = "locals";
+                desc = "Select language scope";
+              };
+            };
+            selection_modes = {
+              "@parameter.outer" = "v";
+              "@function.outer" = "V";
+              "@class.outer" = "<c-v>";
+            };
+            include_surrounding_whitespace = true;
+          };
+          move = {
+            enable = true;
+            set_jumps = true;
+            goto_next_start = {
+              "]m" = "@function.outer";
+              "]]" = {
+                query = "@class.outer";
+                desc = "Next class start";
+              };
+              "]o" = "@loop.*";
+              "]s" = {
+                query = "@local.scope";
+                query_group = "locals";
+                desc = "Next scope";
+              };
+              "]z" = {
+                query = "@fold";
+                query_group = "folds";
+                desc = "Next fold";
+              };
+            };
+            goto_next_end = {
+              "]M" = "@function.outer";
+              "][" = "@class.outer";
+            };
+            goto_previous_start = {
+              "[m" = "@function.outer";
+              "[[" = "@class.outer";
+            };
+            goto_previous_end = {
+              "[M" = "@function.outer";
+              "[]" = "@class.outer";
+            };
+          };
+        };
       };
+
+      # Use all grammars
+      nixGrammars = true;
+    };
+
+    treesitter-context = {
+      enable = true;
     };
   };
 
-  plugins.treesitter-textobjects = {
-    enable = true;
-
-    select = {
-      enable = true;
-
-      lookahead = true;
-
-      keymaps = {
-        # You can use the capture groups defined in textobjects.scm
-        "aa" = "@parameter.outer";
-        "ia" = "@parameter.inner";
-        "af" = "@function.outer";
-        "if" = "@function.inner";
-        "ac" = "@class.outer";
-        "ic" = "@class.inner";
-      };
-    };
-
-    move = {
-      enable = true;
-
-      setJumps = true;
-
-      gotoNextStart = {
-        "]m" = "@function.outer";
-        "]]" = "@class.outer";
-      };
-
-      gotoNextEnd = {
-        "]M" = "@function.outer";
-        "][" = "@class.outer";
-      };
-
-      gotoPreviousStart = {
-        "[m" = "@function.outer";
-        "[[" = "@class.outer";
-      };
-
-      gotoPreviousEnd = {
-        "[M" = "@function.outer";
-        "[]" = "@class.outer";
-      };
-    };
-
-    swap = {
-      enable = true;
-
-      swapNext = {
-        "<leader>a" = "@parameter.inner";
-      };
-
-      swapPrevious = {
-        "<leader>A" = "@parameter.inner";
-      };
-    };
+  # Custom keymaps and options for treesitter
+  opts = {
+    foldmethod = "expr";
+    foldexpr = lib.nixvim.mkRaw "vim.treesitter.foldexpr()";
+    foldminlines = 500;
   };
-
-  plugins.treesitter-context.enable = true;
 
   keymaps = [
     {
       mode = "n";
       key = "[c";
-      action = ''
+      action = lib.nixvim.mkRaw ''
         function()
-          require("treesitter-context").go_to_context()
+          require("treesitter-context").go_to_context(vim.v.count1)
         end
       '';
-      options = { desc = "Go to [C]context"; };
-      lua = true;
+      options.silent = true;
     }
-
   ];
+
+  extraConfigLua = ''
+    vim.cmd("hi TreesitterContextBottom gui=underline guisp=Grey")
+    vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=Grey")
+  '';
 }

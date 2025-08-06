@@ -6,5 +6,6 @@
     ./lsp.nix
     ./mini.nix
     ./fugitive.nix
+    ./gitsigns.nix
   ];
 }

@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: "Install Nix"
-        uses: DeterminateSystems/nix-installer-action@v11
+        uses: DeterminateSystems/nix-installer-action@v19
 
       - name: "Nix Cache"
         uses: DeterminateSystems/magic-nix-cache-action@v6

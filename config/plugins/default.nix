@@ -3,5 +3,6 @@
   imports = [
     ./colorscheme.nix
     ./treesitter.nix
+    ./lsp.nix
   ];
 }

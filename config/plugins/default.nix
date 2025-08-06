@@ -8,5 +8,6 @@
     ./fugitive.nix
     ./gitsigns.nix
     ./lualine.nix
+    ./copilot.nix
   ];
 }

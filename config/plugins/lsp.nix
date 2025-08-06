@@ -162,6 +162,11 @@
   # LSP autogroup
   autoGroups."lsp-attach".clear = true;
 
+  # Additional LSP configuration
+  extraConfigLua = ''
+    vim.cmd("set completeopt+=noselect")
+  '';
+
   # LSP autocmds for completion and formatting
   autoCmd = [
     {

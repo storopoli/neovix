@@ -159,20 +159,6 @@
       options.silent = true;
     }
 
-    # Terminal
-    {
-      mode = "n";
-      key = "<leader>t";
-      action = "<CMD>split | wincmd j | terminal env INSIDE_NEOVIM=1 fish<CR>i";
-      options.silent = true;
-    }
-    {
-      mode = "t";
-      key = "<Esc>";
-      action = "<C-\\><C-n>";
-      options.silent = true;
-    }
-
     # Global yank
     {
       mode = [
@@ -186,56 +172,6 @@
         noremap = true;
         silent = true;
       };
-    }
-
-    # Quickfix/Location lists
-    {
-      mode = "n";
-      key = "]q";
-      action = "<CMD>cnext<CR>zz";
-      options = {
-        noremap = true;
-        silent = true;
-      };
-    }
-    {
-      mode = "n";
-      key = "[q";
-      action = "<CMD>cprev<CR>zz";
-      options = {
-        noremap = true;
-        silent = true;
-      };
-    }
-    {
-      mode = "n";
-      key = "]l";
-      action = "<CMD>lnext<CR>zz";
-      options = {
-        noremap = true;
-        silent = true;
-      };
-    }
-    {
-      mode = "n";
-      key = "[l";
-      action = "<CMD>lprev<CR>zz";
-      options = {
-        noremap = true;
-        silent = true;
-      };
-    }
-
-    # Netrw
-    {
-      mode = "n";
-      key = "<C-p>";
-      action = lib.nixvim.mkRaw "vim.cmd.Lexplore";
-    }
-    {
-      mode = "n";
-      key = "<C-q>";
-      action = "<CMD>Lexplore %:h<CR>";
     }
   ];
 }

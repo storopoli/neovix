@@ -1,4 +1,5 @@
 { lib, ... }:
+
 {
   plugins.lsp.enable = true;
 
@@ -52,7 +53,7 @@
               "require"
             ];
             workspace = {
-              library.__raw = "vim.api.nvim_get_runtime_file('', true)";
+              library = lib.nixvim.mkRaw "vim.api.nvim_get_runtime_file('', true)";
               ignoreDir = [
                 ".git"
                 "node_modules"

@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 {
   config = {
     opts = {
@@ -30,9 +32,7 @@
       # Files & backup
       swapfile = false;
       backup = false;
-      undodir = {
-        __raw = "vim.fn.stdpath('data') .. '/undo'";
-      };
+      undodir = lib.nixvim.mkRaw "vim.fn.stdpath('data') .. '/undo'";
       undofile = true;
 
       # Search behavior

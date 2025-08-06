@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 {
   plugins = {
     treesitter = {
@@ -97,7 +99,7 @@
   # Custom keymaps and options for treesitter
   opts = {
     foldmethod = "expr";
-    foldexpr.__raw = "vim.treesitter.foldexpr()";
+    foldexpr = lib.nixvim.mkRaw "vim.treesitter.foldexpr()";
     foldminlines = 500;
   };
 
@@ -105,7 +107,7 @@
     {
       mode = "n";
       key = "[c";
-      action.__raw = ''
+      action = lib.nixvim.mkRaw ''
         function()
           require("treesitter-context").go_to_context(vim.v.count1)
         end

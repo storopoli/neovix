@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 {
   globals = {
     mapleader = " ";
@@ -228,7 +230,7 @@
     {
       mode = "n";
       key = "<C-p>";
-      action.__raw = "vim.cmd.Lexplore";
+      action = lib.nixvim.mkRaw "vim.cmd.Lexplore";
     }
     {
       mode = "n";

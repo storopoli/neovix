@@ -7,5 +7,6 @@
     ./mini.nix
     ./fugitive.nix
     ./gitsigns.nix
+    ./lualine.nix
   ];
 }

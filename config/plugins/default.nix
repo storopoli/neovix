@@ -5,5 +5,6 @@
     ./treesitter.nix
     ./lsp.nix
     ./mini.nix
+    ./fugitive.nix
   ];
 }

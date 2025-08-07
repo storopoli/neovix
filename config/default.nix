@@ -6,7 +6,7 @@
     ./disable_plugins.nix
     ./highlight_yank.nix
     ./restore_cursor.nix
-    ./netrw.nix
+    # ./netrw.nix
     ./terminal.nix
     ./quickfix.nix
     ./plugins

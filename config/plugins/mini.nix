@@ -85,24 +85,7 @@
       '';
     };
 
-    mini-extra = {
-      enable = true;
-      luaConfig.post = ''
-        -- Custom directory picker
-        local mini_cwd = function()
-          local MiniExtraExplorer = require("mini.extra").pickers.explorer
-          local buf_name = vim.api.nvim_buf_get_name(0)
-          if vim.fn.filereadable(buf_name) == 1 then
-            MiniExtraExplorer({ cwd = vim.fs.dirname(buf_name) })
-          else
-            MiniExtraExplorer()
-          end
-        end
-
-        -- Set up keymap for custom directory picker
-        vim.keymap.set("n", "<leader>E", mini_cwd)
-      '';
-    };
+    mini-extra.enable = true;
   };
 
   # Custom pickers and keymaps
@@ -131,11 +114,6 @@
       mode = "n";
       key = "<leader>'";
       action = "<CMD>Pick resume<CR>";
-    }
-    {
-      mode = "n";
-      key = "<leader>e";
-      action = "<CMD>Pick explorer<CR>";
     }
     {
       mode = "n";

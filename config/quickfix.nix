@@ -64,7 +64,8 @@
       callback = lib.nixvim.mkRaw ''
         function()
           vim.keymap.set("n", "q", "<CMD>quit<CR>", { buffer = true, noremap = true, silent = true })
-          vim.keymap.set("n", "<C-p>", "k", { buffer = true, noremap = true, silent = true })
+          -- NOTE: needed only when netrw is enable because of C-p conflicts
+          -- vim.keymap.set("n", "<C-p>", "k", { buffer = true, noremap = true, silent = true })
         end
       '';
     }

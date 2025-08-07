@@ -5,6 +5,7 @@
     ./treesitter.nix
     ./lsp.nix
     ./mini.nix
+    ./yazi.nix
     ./fugitive.nix
     ./gitsigns.nix
     ./lualine.nix

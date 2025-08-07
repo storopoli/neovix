@@ -25,7 +25,7 @@
       vim.keymap.set("n", "<leader>gf", "<CMD>Git fetch<CR>", opts)
       vim.keymap.set("n", "<leader>gF", "<CMD>Git pull<CR>", opts)
       vim.keymap.set("n", "<leader>gS", "<CMD>Git stash<CR>", opts)
-      
+
       -- Branch operations
       vim.keymap.set("n", "<leader>gbn", function()
         vim.ui.input({ prompt = "Branch name: " }, function(branch)

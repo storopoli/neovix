@@ -180,8 +180,8 @@
           if client and client.server_capabilities.completionProvider then
             vim.opt.completeopt = { "menu", "menuone", "noinsert", "fuzzy", "popup" }
             vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-            vim.keymap.set("i", "<C-n>", vim.lsp.completion.get, { 
-              buffer = ev.buf, noremap = true, silent = true 
+            vim.keymap.set("i", "<C-n>", vim.lsp.completion.get, {
+              buffer = ev.buf, noremap = true, silent = true
             })
           end
 

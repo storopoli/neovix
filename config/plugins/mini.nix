@@ -25,7 +25,7 @@
           MiniPick.builtin.buffers(nil, { mappings = buffer_mappings })
         end
 
-        -- Register picker 
+        -- Register picker
         local register_picker = function()
           local MiniPick = require("mini.pick")
 

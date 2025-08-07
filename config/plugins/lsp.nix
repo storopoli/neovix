@@ -43,6 +43,9 @@
     ];
 
     servers = {
+      # Prefer local LSP
+      "*".settings.packageFallback = true;
+
       lua_ls = {
         enable = true;
         settings = {

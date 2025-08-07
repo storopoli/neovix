@@ -140,6 +140,7 @@
         };
       };
 
+      nixd.enable = true;
       marksman.enable = true;
       bashls.enable = true;
       fish_lsp.enable = true;

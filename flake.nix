@@ -71,7 +71,12 @@
           packages.default = nvim;
 
           devShells.default = pkgs.mkShell {
-            buildInputs = [ nvim ] ++ self'.checks.pre-commit-check.enabledPackages;
+            buildInputs = [
+              nvim
+              pkgs.nil
+              pkgs.nixd
+            ]
+            ++ self'.checks.pre-commit-check.enabledPackages;
             shellHook = self'.checks.pre-commit-check.shellHook;
           };
         };

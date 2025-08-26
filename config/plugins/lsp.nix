@@ -84,12 +84,13 @@
         enable = true;
         settings = {
           rust-analyzer = {
+            cargo.features = "all";
             procMacro = {
               enable = true;
               ignored = {
                 napi-derive = [ "napi" ];
                 async-recursion = [ "async_recursion" ];
-                async-trait = null;
+                async-trait = [ "async-trait" ];
               };
             };
           };

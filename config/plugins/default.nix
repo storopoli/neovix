@@ -8,6 +8,7 @@
     ./yazi.nix
     ./fugitive.nix
     ./gitsigns.nix
+    ./gitlinker.nix
     ./lualine.nix
     ./copilot.nix
   ];

@@ -1,0 +1,4 @@
+{ ... }:
+{
+  plugins.gitlinker.enable = true;
+}

@@ -52,23 +52,88 @@ Additionally, you can use it as a flake:
 
 Then `neovix` will be available as `pkgs.neovix`.
 
-## Local Configurations with `exrc`
+## `init.lua`
 
-Local settings can be configured by  creating a `.nvim.lua` file in the project's
-root directory.
-If neovim is launched in the same directory as `.nvim.lua`,
-it will evaluate your user configuration first,
-followed by the local configuration.
-
-An example `.nvim.lua` might be as follows:
+This config boils down to the following `init.lua` config (requires `neovim` version `0.12` or higher):
 
 ```lua
-local nvim_lsp = require("lspconfig")
+-------------------------------------------------------------------------------
+-- DEPENDENCIES
+-- neovim >=0.12 ripgrep fd fzf
+-------------------------------------------------------------------------------
 
-nvim_lsp.rust_analyzer.setup({
-  root_dir = function()
-    return vim.fn.getcwd()
-  end
+-- Options
+-- Set highlight on search
+vim.o.hlsearch = false
+vim.o.incsearch = true
+vim.o.nu = true
+vim.o.relativenumber = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+vim.o.hidden = true
+vim.o.laststatus = 3
+vim.o.winbar = "%=%m %f"
+vim.o.mouse = "a"
+-- Scrolling
+vim.o.scrolloff = 8
+vim.o.sidescrolloff = 8
+-- Time in milliseconds to wait for a mapped sequence to complete
+vim.o.timeoutlen = 500
+vim.o.ttyfast = true
+vim.o.wrap = false
+vim.o.breakindent = true
+-- Better undo history
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undodir = vim.fn.stdpath("data") .. "/undo"
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.updatetime = 500
+vim.wo.signcolumn = "yes"
+vim.o.colorcolumn = "80"
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.o.winborder = "rounded"
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- Plugins
+vim.pack.add({
+  "https://github.com/echasnovski/mini.completion",
+  "https://github.com/ibhagwan/fzf-lua",
+  "https://github.com/neovim/nvim-lspconfig",
+})
+
+-- Completion
+require("mini.completion").setup{}
+
+-- LSPs
+-- Auto-starts LSP when a buffer is opened, based on the lsp-config
+-- `filetypes`, `root_markers`, and `root_dir` fields.
+vim.lsp.enable({
+  "lua_ls",
+  "hls",
+  "rust_analyzer",
+  "nil_ls",
+  "nixd",
+  "taplo",
+  "yamlls",
+  "tinymist",
+  "marksman",
+  "bashls",
+  "fish_lsp",
+  "cssls",
+  "eslint",
+  "html",
+  "jsonls",
+  "pyright",
+  "ruff",
 })
 ```
 

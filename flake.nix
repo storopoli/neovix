@@ -53,6 +53,8 @@
                 # Nix
                 nixfmt-rfc-style.enable = true;
 
+                statix.enable = true;
+
                 flake-checker = {
                   enable = true;
                   args = [
@@ -77,14 +79,12 @@
               pkgs.nixd
             ]
             ++ self'.checks.pre-commit-check.enabledPackages;
-            shellHook = self'.checks.pre-commit-check.shellHook;
+            inherit (self'.checks.pre-commit-check) shellHook;
           };
         };
 
-      flake.overlays.default = (
-        final: prev: {
-          neovix = final.pkgs.neovix or final.pkgs.neovim;
-        }
-      );
+      flake.overlays.default = final: prev: {
+        neovix = final.pkgs.neovix or final.pkgs.neovim;
+      };
     };
 }

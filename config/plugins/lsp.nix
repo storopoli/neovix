@@ -18,4 +18,10 @@
     ruff.enable = true;
     taplo.enable = true;
   };
+
+  # LSP diagnostic configuration
+  diagnostic.settings = {
+    virtual_text = false;
+    virtual_lines.current_line = true;
+  };
 }

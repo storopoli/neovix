@@ -1,7 +1,12 @@
 { ... }:
 
 {
-  plugins.lsp.enable = true;
+  plugins.lsp = {
+    enable = true;
+    keymaps.lspBuf = {
+      "grf" = "format";
+    };
+  };
 
   lsp.servers = {
     # Prefer local LSP

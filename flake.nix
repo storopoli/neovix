@@ -65,6 +65,9 @@
 
                 # Lua
                 luacheck.enable = true;
+
+                # GH Action
+                zizmor.enable = true;
               };
             };
           };

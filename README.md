@@ -110,8 +110,21 @@ vim.pack.add({
   "https://github.com/neovim/nvim-lspconfig",
 })
 
+-- FZF-lua
+require "fzf-lua".setup { defaults = { git_icons = false } }
+vim.api.nvim_set_keymap("n", "<C-\\>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
+vim.api.nvim_set_keymap("n", "<C-k>", [[<Cmd>lua require"fzf-lua".diagnostics_workspace()<CR>]], {})
+vim.api.nvim_set_keymap("n", "<C-p>", [[<Cmd>lua require"fzf-lua".global()<CR>]], {})
+vim.api.nvim_set_keymap("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep()<CR>]], {})
+vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
+vim.api.nvim_set_keymap("n", "gs", [[<Cmd>lua require"fzf-lua".lsp_document_symbols()<CR>]], {})
+vim.api.nvim_set_keymap("n", "gS", [[<Cmd>lua require"fzf-lua".lsp_live_workspace_symbols()<CR>]], {})
+
 -- Completion
 require("mini.completion").setup{}
+
+-- LSP Diagnostics
+vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true } })
 
 -- LSPs
 -- Auto-starts LSP when a buffer is opened, based on the lsp-config
@@ -124,17 +137,13 @@ vim.lsp.enable({
   "nixd",
   "taplo",
   "yamlls",
-  "tinymist",
-  "marksman",
   "bashls",
-  "fish_lsp",
-  "cssls",
-  "eslint",
-  "html",
-  "jsonls",
   "pyright",
   "ruff",
 })
+
+-- LSP format
+vim.keymap.set("n", "grf", vim.lsp.buf.format, {})
 ```
 
 ## Neovimer's Creed

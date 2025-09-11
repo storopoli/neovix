@@ -4,7 +4,14 @@
   plugins.lsp = {
     enable = true;
     keymaps.lspBuf = {
-      "grf" = "format";
+      "gd" = "definition";
+      "gD" = "implementation";
+      "gr" = "references";
+      "gi" = "type_definition";
+      "K" = "hover";
+      "<leader>f" = "format";
+      "<leader>r" = "rename";
+      "<leader>a" = "code_action";
     };
   };
 

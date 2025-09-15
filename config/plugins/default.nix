@@ -5,5 +5,6 @@
     ./fzf-lua.nix
     ./lsp.nix
     ./mini.nix
+    ./gitsigns.nix
   ];
 }

@@ -2,12 +2,6 @@
 
 {
   config = {
-    globals = {
-      # leader
-      mapleader = " ";
-      maplocalleader = " ";
-    };
-
     opts = {
       # Search & display
       hlsearch = false;

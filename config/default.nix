@@ -4,6 +4,7 @@
     ./options.nix
     ./keymaps.nix
     ./disable_plugins.nix
+    ./highlight_yank.nix
     ./plugins
   ];
 }

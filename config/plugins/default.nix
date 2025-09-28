@@ -6,6 +6,7 @@
     ./fzf-lua.nix
     ./gitsigns.nix
     ./lsp.nix
+    ./lualine.nix
     ./mini.nix
     ./treesitter.nix
   ];

@@ -6,11 +6,11 @@
     nixvim.url = "github:nix-community/nixvim";
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks.url = "github:cachix/git-hooks.nix";
-
   };
 
   outputs =
     {
+      self,
       nixvim,
       flake-parts,
       git-hooks,
@@ -47,7 +47,7 @@
           checks = {
             # Run `nix flake check .` to verify that your config is not broken
             default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
-            pre-commit-check = inputs.git-hooks.lib.${system}.run {
+            pre-commit-check = git-hooks.lib.${system}.run {
               src = ./.;
               hooks = {
                 # Nix
@@ -87,7 +87,7 @@
         };
 
       flake.overlays.default = final: prev: {
-        neovix = final.pkgs.neovix or final.pkgs.neovim;
+        neovix = self.packages.${final.system}.default;
       };
     };
 }

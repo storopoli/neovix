@@ -3,6 +3,7 @@
   imports = [
     ./options.nix
     ./keymaps.nix
+    ./disable_plugins.nix
     ./plugins
   ];
 }

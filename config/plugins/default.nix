@@ -7,5 +7,6 @@
     ./gitsigns.nix
     ./lsp.nix
     ./mini.nix
+    ./treesitter.nix
   ];
 }

@@ -11,4 +11,3 @@
 
   autoGroups.RestoreGroup.clear = true;
 }
-

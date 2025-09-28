@@ -1,4 +1,3 @@
 {
   plugins.lualine.enable = true;
 }
-

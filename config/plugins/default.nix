@@ -4,8 +4,8 @@
     ./avante.nix
     ./colorscheme.nix
     ./fzf-lua.nix
+    ./gitsigns.nix
     ./lsp.nix
     ./mini.nix
-    ./gitsigns.nix
   ];
 }

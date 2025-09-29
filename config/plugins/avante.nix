@@ -6,7 +6,7 @@
       enable = true;
 
       settings = {
-        provider = "claude";
+        provider = "claude-code";
         # provider = "xai";
         auto_suggestions_provider = "claude";
         file_selector = {

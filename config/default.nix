@@ -7,6 +7,7 @@
     ./highlight_yank.nix
     ./restore_cursor.nix
     ./terminal.nix
+    ./lsp.nix
     ./plugins
   ];
 }

@@ -11,5 +11,6 @@
     ./mini.nix
     ./render-markdown.nix
     ./treesitter.nix
+    ./yazi.nix
   ];
 }

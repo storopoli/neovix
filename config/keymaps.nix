@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 
 {
   globals = {
@@ -167,7 +167,7 @@
         "x"
       ];
       key = "<leader>y";
-      action = ''"+y"'';
+      action = ''"+y"<Esc>'';
       options = {
         noremap = true;
         silent = true;

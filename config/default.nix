@@ -1,4 +1,11 @@
 {
+  pkgs,
+  neovim-nightly,
+  ...
+}:
+
+{
+  package = neovim-nightly.packages.${pkgs.system}.default;
   # Import all your configuration modules here
   imports = [
     ./options.nix

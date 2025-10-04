@@ -1,51 +1,27 @@
 {
   lib,
-  pkgs,
   ...
 }:
 
-let
-  settings = {
-    nes.enabled = true;
-    mux = {
-      enabled = true;
-      backend = "tmux";
+{
+  plugins.sidekick = {
+    enable = true;
+    settings = {
+      nes.enabled = true;
+      mux = {
+        enabled = true;
+        backend = "tmux";
+      };
     };
   };
-in
 
-{
-  extraPlugins = [
-    (pkgs.vimPlugins.sidekick-nvim.overrideAttrs {
-      version = "1.2.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "folke";
-        repo = "sidekick.nvim";
-        rev = "373b9f71d864209b1ccf64d6c73a434c33c2d67e";
-        sha256 = "sha256-so/28fFNL1xZv/SFoAbdRKXx11NvDQ2Nxa5TD8Tmtjs=";
-      };
-    })
-  ];
-
+  # NOTE: requires nvim 0.12+
+  # FIXME: migrate to options.nix when supported in nixvim
   extraConfigLua = ''
-    require('sidekick').setup(${lib.nixvim.toLuaObject settings})
     vim.lsp.inline_completion.enable()
   '';
 
-  extraPackages = [
-    pkgs.github-copilot-cli
-  ];
-
-  lsp.servers.copilot = {
-    enable = true;
-
-    settings = {
-      cmd = [
-        "${lib.getExe pkgs.copilot-language-server}"
-        "--stdio"
-      ];
-    };
-  };
+  lsp.servers.copilot.enable = true;
 
   keymaps = [
     {
@@ -85,7 +61,7 @@ in
         "i"
         "t"
       ];
-      key = "<c-.>";
+      key = "<C-.>";
       action = lib.nixvim.mkRaw ''
         function() require("sidekick.cli").focus() end
       '';

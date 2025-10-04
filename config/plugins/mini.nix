@@ -4,6 +4,7 @@
     modules = {
       completion = { }; # default settings
       icons = { }; # default settings
+      surround = { }; # default settings
     };
   };
 }

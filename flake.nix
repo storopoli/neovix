@@ -68,10 +68,13 @@
               src = ./.;
               hooks = {
                 # Nix
-                nixfmt-rfc-style.enable = true;
-
+                # TODO: change to nixfmt-tree when git-hooks supports it
+                nixfmt-rfc-style = {
+                  enable = true;
+                  package = pkgs.nixfmt-tree;
+                  entry = "${pkgs.nixfmt-tree}/bin/treefmt";
+                };
                 statix.enable = true;
-
                 flake-checker = {
                   enable = true;
                   args = [
@@ -88,6 +91,7 @@
               };
             };
           };
+          formatter = pkgs.nixfmt-tree;
 
           # Lets you run `nix run .` to start nixvim
           packages.default = nvim;

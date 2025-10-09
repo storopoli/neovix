@@ -6,7 +6,6 @@
     ./gitsigns.nix
     ./lualine.nix
     ./mini.nix
-    ./sidekick.nix
     ./treesitter.nix
     ./yazi.nix
   ];
